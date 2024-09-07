@@ -10,33 +10,26 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def generate_summary(game_title):
     response = openai.Completion.create(
-      engine="text-davinci-003",
-      prompt=f"Generate a 255-character description for the PS2 game '{game_title}'",
-      max_tokens=60
+        engine="text-davinci-003",
+        prompt=f"Generate a 255-character description for the PS2 game '{game_title}'",
+        max_tokens=60
     )
     summary = response.choices[0].text.strip()
     return summary
 
 def main():
     while True:
-        # Simulating user choice
-        print("Choose a game title:")
-        games = ["Ace Combat 04: Shattered Skies", "The Legend of Spyro: The Eternal Night", "Jak II"]
-        for i, game in enumerate(games, 1):
-            print(f"{i}. {game}")
-        
-        choice = int(input("Enter the number of your choice: "))
-        selected_game = games[choice - 1]
+        # Take user input for the game title
+        game_title = input("Enter the PlayStation 2 game title: ")
 
         # Generate and display the summary
-        summary = generate_summary(selected_game)
-        print(f"\nSummary for {selected_game}:\n{summary}")
+        summary = generate_summary(game_title)
+        print(f"\nSummary for {game_title}:\n{summary}")
         print(f"Character count: {len(summary)} / 255\n")
 
-        # Continue with the next set of game titles
-        # (You would dynamically fetch or generate these in a real application)
-        continue_choice = input("Would you like to continue? (y/n): ")
-        if continue_choice.lower() != 'y':
+        # Option to continue or exit
+        continue_choice = input("Do you want to generate a description for another game? (yes/no): ").strip().lower()
+        if continue_choice != 'yes':
             break
 
 if __name__ == "__main__":
