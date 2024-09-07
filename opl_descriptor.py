@@ -1,7 +1,8 @@
+import os
 import openai
 
-# OpenAI API key
-openai.api_key = "your-openai-api-key"
+# Retrieve the API key from the environment variable
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def generate_summary(game_title):
     response = openai.Completion.create(
